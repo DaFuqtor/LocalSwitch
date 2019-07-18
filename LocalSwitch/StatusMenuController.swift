@@ -51,6 +51,9 @@ class StatusMenuController: NSObject, NSMenuDelegate {
     }
     @IBAction func stopClicked(_ sender: NSMenuItem) {
         shell("sudo apachectl graceful-stop")
+//        let theASScript = "do shell script \"apachectl graceful-stop\" with administrator privileges"
+//        let appleScript = NSAppleScript(source: theASScript)
+//        appleScript?.executeAndReturnError(nil)
     }
     
     @IBAction func visitClicked(_ sender: NSMenuItem) {
