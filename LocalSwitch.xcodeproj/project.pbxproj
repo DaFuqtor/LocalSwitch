@@ -14,7 +14,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		31024B9E22DF27DD0085C9F0 /* LocalSwitch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocalSwitch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		31186BFB22E3B8B00070534E /* LocalSwitch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = LocalSwitch.app; path = /Users/dafuqtor/Documents/GitHub/LocalSwitch/build/Debug/LocalSwitch.app; sourceTree = "<absolute>"; };
 		31383A4E22DCAFFF0023175C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		31383A5022DCB0010023175C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		31383A5322DCB0010023175C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -38,7 +38,6 @@
 			isa = PBXGroup;
 			children = (
 				31383A4D22DCAFFF0023175C /* LocalSwitch */,
-				31024B9E22DF27DD0085C9F0 /* LocalSwitch.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,7 +71,7 @@
 			);
 			name = LocalSwitch;
 			productName = LocalSwitch;
-			productReference = 31024B9E22DF27DD0085C9F0 /* LocalSwitch.app */;
+			productReference = 31186BFB22E3B8B00070534E /* LocalSwitch.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */

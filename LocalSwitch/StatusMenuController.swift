@@ -1,5 +1,3 @@
-import Foundation
-
 @discardableResult
 func shell(_ command: String) -> String {
     let task = Process()
@@ -16,12 +14,9 @@ func shell(_ command: String) -> String {
     return output
 }
 
-import Cocoa
-
 extension String {
     func condenseWhitespace() -> String {
-        let components = self.components(separatedBy: .whitespacesAndNewlines)
-        return components.filter { !$0.isEmpty }.joined(separator: " ")
+        return self.components(separatedBy: .whitespacesAndNewlines).filter { !$0.isEmpty }.joined(separator: " ")
     }
 }
 
@@ -33,6 +28,8 @@ func getTime(_ query: String) -> String {
     return query.condenseWhitespace().components(separatedBy: " ")[1]
 }
 
+import Cocoa
+
 class StatusMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var statusMenu: NSMenu!
     @IBOutlet weak var uptimeStat: NSMenuItem!
@@ -40,8 +37,8 @@ class StatusMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var visitBut: NSMenuItem!
     @IBOutlet weak var runBut: NSMenuItem!
     @IBOutlet weak var stopBut: NSMenuItem!
-    
-    let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+
+    let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
     
     @IBAction func quitClicked(_ sender: NSMenuItem) {
         NSApplication.shared.terminate(self)
@@ -56,25 +53,51 @@ class StatusMenuController: NSObject, NSMenuDelegate {
 //        appleScript?.executeAndReturnError(nil)
     }
     
-    @IBAction func visitClicked(_ sender: NSMenuItem) {
+    func letsVisit() {
         let url = URL(string: "http://" + trimSpaces(shell("hostname")))!
         if NSWorkspace.shared.open(url) {
             print("default browser was successfully opened")
         }
     }
     
+    @IBAction func visitClicked(_ sender: NSMenuItem) {
+        letsVisit()
+    }
+    
     func trimSpaces(_ query: String) -> String {
         return query.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
+    class RightMouseHandlerView: NSView {
+
+        var onRightMouseDown: (()->())? = nil
+
+        override func rightMouseDown(with event: NSEvent) {
+            super.rightMouseDown(with: event)
+
+            if onRightMouseDown != nil {
+                onRightMouseDown!()
+            }
+        }
+    }
+
     override func awakeFromNib() {
         let icon = NSImage(named: "statusIcon")
         icon?.isTemplate = true
         statusItem.menu = statusMenu
         statusItem.length = 28
-        let button = statusItem.button!
-        button.image = icon
         statusMenu.delegate = self
+        if let button = statusItem.button {
+            button.image = icon
+            
+            let rmhView = RightMouseHandlerView(frame: statusItem.button!.frame)
+            rmhView.onRightMouseDown = {
+                if (!self.visitBut.isHidden) {
+                    self.letsVisit()
+                }
+            }
+            button.addSubview(rmhView)
+        }
     }
     
     func menuWillOpen(_ menu: NSMenu) {
@@ -88,7 +111,7 @@ class StatusMenuController: NSObject, NSMenuDelegate {
         let checkRes = servCheck()
         if (!checkRes.isEmpty) {
             uptimeStat.title = "Server uptime: " + getTime(checkRes)
-            visitBut.title = trimSpaces(shell("hostname")) + "..."
+            visitBut.title = trimSpaces(shell("hostname"))
             visitBut.toolTip = shell("ipconfig getifaddr en0")
             visitBut.isHidden = false
             
