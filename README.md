@@ -2,7 +2,7 @@
 
 <blockquote align="center"><p>Menu bar interface for a local Apache httpd server.</p></blockquote>
 
-<p align="center">LocalSwitch is an open source macOS interface for `apachectl` written in Swift.</p>
+<p align="center">LocalSwitch is an open source macOS interface for <code>apachectl</code> written in Swift.</p>
 
 [![LocalSwitch](preview/demo_preview.png)](preview/demo.mov "LocalSwitch")
 
