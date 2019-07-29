@@ -1,9 +1,9 @@
-# LocalSwitch
+<h1 align="center">LocalSwitch</h1>
 
-> Menu bar interface for a local Apache httpd server.
+<blockquote align="center"><p>Menu bar interface for a local Apache httpd server.</p></blockquote>
 
-LocalSwitch is an open source macOS interface for `apachectl` written in Swift.
+<p align="center">LocalSwitch is an open source macOS interface for `apachectl` written in Swift.</p>
 
 [![LocalSwitch](preview/demo_preview.png)](preview/demo.mov "LocalSwitch")
 
-## [Download latest release](https://github.com/DaFuqtor/LocalSwitch/releases/latest/download/LocalSwitch.zip)
+<h2 align="center"><a href="https://github.com/DaFuqtor/LocalSwitch/releases/latest/download/LocalSwitch.zip">Download latest release</a></h2>
