@@ -7,3 +7,9 @@
 [![LocalSwitch](preview/demo_preview.png)](preview/demo.mov "LocalSwitch")
 
 <h2 align="center"><a href="https://github.com/DaFuqtor/LocalSwitch/releases/latest/download/LocalSwitch.zip">Download latest release</a></h2>
+
+## Quick Installation
+
+```
+curl https://raw.githubusercontent.com/DaFuqtor/LocalSwitch/master/install.sh | sh
+```

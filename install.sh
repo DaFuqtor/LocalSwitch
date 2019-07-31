@@ -1,0 +1,1 @@
+curl -# -O -L https://github.com/DaFuqtor/LocalSwitch/releases/latest/download/LocalSwitch.zip && unzip -q -u LocalSwitch.zip -d /Applications && rm -f LocalSwitch.zip
