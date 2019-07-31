@@ -11,5 +11,5 @@
 ## Quick Installation
 
 ```
-curl -L https://git.io/localswitchinst | sh
+curl -L git.io/localswitchinst | sh
 ```
