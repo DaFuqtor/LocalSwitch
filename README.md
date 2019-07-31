@@ -11,5 +11,5 @@
 ## Quick Installation
 
 ```
-curl https://raw.githubusercontent.com/DaFuqtor/LocalSwitch/master/install.sh | sh
+curl -L https://git.io/localswitchinst | sh
 ```
