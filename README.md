@@ -10,6 +10,12 @@
 
 ## Quick Installation
 
-```
+```powershell
 curl -sL git.io/localswitchinst | sh
+```
+
+### [Homebrew](//brew.sh)
+
+```powershell
+brew cask install dafuqtor/tap/localswitch
 ```
