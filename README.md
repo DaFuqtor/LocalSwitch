@@ -4,7 +4,7 @@
 
 <p align="center">LocalSwitch is an open source macOS interface for <code>apachectl</code> written in Swift.</p>
 
-[![LocalSwitch](preview/demo_preview.png)](preview/demo.mov "LocalSwitch")
+![preview](preview.png)
 
 <h2 align="center"><a href="https://github.com/DaFuqtor/LocalSwitch/releases/latest/download/LocalSwitch.zip">Download latest release</a></h2>
 
