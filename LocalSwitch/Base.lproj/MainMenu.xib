@@ -15,37 +15,54 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <customObject id="cS8-cx-d1Y" customClass="StatusMenuController" customModule="LocalSwitch" customModuleProvider="target">
             <connections>
+                <outlet property="restartBut" destination="RUn-I0-CNr" id="Sr1-ve-MLk"/>
                 <outlet property="runBut" destination="CLd-r7-Kev" id="vmZ-9i-JgY"/>
                 <outlet property="statusMenu" destination="XKc-wR-Whv" id="Ifm-WU-gRv"/>
                 <outlet property="stopBut" destination="em5-dh-Qe6" id="pz7-Bc-Sok"/>
                 <outlet property="uptimeStat" destination="2x5-e1-JSK" id="v7v-Kg-edr"/>
                 <outlet property="visitBut" destination="uKP-4v-l74" id="U05-xy-PDE"/>
+                <outlet property="visitLocalhostBut" destination="YYg-sM-NWQ" id="2DM-Nl-1jX"/>
             </connections>
         </customObject>
-        <menu autoenablesItems="NO" id="XKc-wR-Whv">
+        <menu showsStateColumn="NO" autoenablesItems="NO" id="XKc-wR-Whv">
             <items>
-                <menuItem title="Uptime" enabled="NO" id="2x5-e1-JSK">
+                <menuItem title="Uptime" enabled="NO" indentationLevel="1" id="2x5-e1-JSK">
                     <attributedString key="attributedTitle"/>
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
-                <menuItem title="Visit" keyEquivalent="k" id="uKP-4v-l74">
-                    <connections>
-                        <action selector="visitClicked:" target="cS8-cx-d1Y" id="83S-jj-Vui"/>
-                    </connections>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="Gsn-JK-RVg"/>
-                <menuItem title="Run" keyEquivalent="r" id="CLd-r7-Kev" userLabel="Run">
-                    <connections>
-                        <action selector="runClicked:" target="cS8-cx-d1Y" id="EZE-Sz-Lur"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Turn Server Off" keyEquivalent="e" id="em5-dh-Qe6">
+                <menuItem title="Turn Server Off" keyEquivalent="s" indentationLevel="2" id="em5-dh-Qe6">
+                    <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                     <connections>
                         <action selector="stopClicked:" target="cS8-cx-d1Y" id="jbn-ag-zDr"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Run" enabled="NO" keyEquivalent="r" indentationLevel="2" id="CLd-r7-Kev" userLabel="Run">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="runClicked:" target="cS8-cx-d1Y" id="EZE-Sz-Lur"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Restart" hidden="YES" alternate="YES" keyEquivalent="r" indentationLevel="2" id="RUn-I0-CNr" userLabel="Restart">
+                    <connections>
+                        <action selector="runClicked:" target="cS8-cx-d1Y" id="5qQ-e9-LLV"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="Gsn-JK-RVg"/>
+                <menuItem title="Visit" keyEquivalent="v" indentationLevel="1" id="uKP-4v-l74">
+                    <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                    <connections>
+                        <action selector="visitClicked:" target="cS8-cx-d1Y" id="83S-jj-Vui"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Visit localhost" alternate="YES" keyEquivalent="v" indentationLevel="1" id="YYg-sM-NWQ">
+                    <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                    <connections>
+                        <action selector="visitLocalhostClicked:" target="cS8-cx-d1Y" id="8Gk-tG-Tij"/>
+                    </connections>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="Szf-Ct-hra"/>
-                <menuItem title="Quit LocalSwitch" keyEquivalent="q" id="MWN-aO-1e4">
+                <menuItem title="Quit" keyEquivalent="q" indentationLevel="1" id="MWN-aO-1e4">
+                    <attributedString key="attributedTitle"/>
                     <connections>
                         <action selector="quitClicked:" target="cS8-cx-d1Y" id="mGc-rO-lL5"/>
                     </connections>
