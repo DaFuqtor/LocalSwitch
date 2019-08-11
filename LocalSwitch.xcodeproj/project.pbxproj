@@ -14,13 +14,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		31186BFB22E3B8B00070534E /* LocalSwitch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = LocalSwitch.app; path = /Users/dafuqtor/Documents/GitHub/LocalSwitch/build/Debug/LocalSwitch.app; sourceTree = "<absolute>"; };
 		31383A4E22DCAFFF0023175C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		31383A5022DCB0010023175C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		31383A5322DCB0010023175C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		31383A5522DCB0010023175C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31383A5622DCB0010023175C /* LocalSwitch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LocalSwitch.entitlements; sourceTree = "<group>"; };
 		31383A5C22DCB0700023175C /* StatusMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
+		31DE0296230086580072D28C /* LocalSwitch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocalSwitch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +38,7 @@
 			isa = PBXGroup;
 			children = (
 				31383A4D22DCAFFF0023175C /* LocalSwitch */,
+				31DE0296230086580072D28C /* LocalSwitch.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,7 +72,7 @@
 			);
 			name = LocalSwitch;
 			productName = LocalSwitch;
-			productReference = 31186BFB22E3B8B00070534E /* LocalSwitch.app */;
+			productReference = 31DE0296230086580072D28C /* LocalSwitch.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */

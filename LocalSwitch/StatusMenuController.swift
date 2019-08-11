@@ -28,6 +28,17 @@ func getTime(_ query: String) -> String {
   return query.condenseWhitespace().components(separatedBy: " ")[1]
 }
 
+var statusItem = NSStatusBar.system.statusItem(withLength: 27)
+
+func runServer() {
+  shell("sudo apachectl graceful")
+  statusItem.button?.appearsDisabled = false
+}
+func stopServer() {
+  shell("sudo apachectl graceful-stop")
+  statusItem.button?.appearsDisabled = true
+}
+
 import Cocoa
 
 class StatusMenuController: NSObject, NSMenuDelegate {
@@ -40,19 +51,8 @@ class StatusMenuController: NSObject, NSMenuDelegate {
   @IBOutlet weak var stopBut: NSMenuItem!
   @IBOutlet weak var restartBut: NSMenuItem!
   
-  let statusItem = NSStatusBar.system.statusItem(withLength: 27)
-  
   @IBAction func quitClicked(_ sender: NSMenuItem) {
     NSApplication.shared.terminate(self)
-  }
-  
-  public func stopServer() {
-    shell("sudo apachectl graceful-stop")
-    statusItem.button?.appearsDisabled = true
-  }
-  public func runServer() {
-    shell("sudo apachectl graceful")
-    statusItem.button?.appearsDisabled = false
   }
   
   @IBAction func runClicked(_ sender: NSMenuItem) {
