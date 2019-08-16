@@ -40,6 +40,7 @@ func stopServer() {
 }
 
 import Cocoa
+import LoginServiceKit
 
 class StatusMenuController: NSObject, NSMenuDelegate {
   @IBOutlet weak var statusMenu: NSMenu!
@@ -50,6 +51,19 @@ class StatusMenuController: NSObject, NSMenuDelegate {
   @IBOutlet weak var runBut: NSMenuItem!
   @IBOutlet weak var stopBut: NSMenuItem!
   @IBOutlet weak var restartBut: NSMenuItem!
+  
+  @IBOutlet weak var launchAtLoginBut: NSMenuItem!
+  
+  @IBAction func launchAtLoginClicked(_ sender: NSMenuItem) {
+    let isExistLoginItem = LoginServiceKit.isExistLoginItems()
+    if isExistLoginItem {
+      LoginServiceKit.removeLoginItems()
+      launchAtLoginBut.state = .off
+    } else {
+      LoginServiceKit.addLoginItems()
+      launchAtLoginBut.state = .on
+    }
+  }
   
   @IBAction func quitClicked(_ sender: NSMenuItem) {
     NSApplication.shared.terminate(self)
@@ -112,6 +126,8 @@ class StatusMenuController: NSObject, NSMenuDelegate {
       rmhView.onRightMouseDown = {
         if !self.visitBut.isHidden {
           self.letsVisit()
+        } else {
+          runServer()
         }
       }
       button.addSubview(rmhView)
@@ -120,6 +136,12 @@ class StatusMenuController: NSObject, NSMenuDelegate {
   
   func menuWillOpen(_ menu: NSMenu) {
     statusItem.button?.appearsDisabled = true
+    let isExistLoginItem = LoginServiceKit.isExistLoginItems()
+    if isExistLoginItem {
+      launchAtLoginBut.state = .on
+    } else {
+      launchAtLoginBut.state = .off
+    }
     let checkRes = servCheck()
     let boolCheckInv = checkRes.isEmpty
     stopExecution = boolCheckInv

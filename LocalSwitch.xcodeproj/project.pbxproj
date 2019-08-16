@@ -11,6 +11,7 @@
 		31383A5122DCB0010023175C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31383A5022DCB0010023175C /* Assets.xcassets */; };
 		31383A5422DCB0010023175C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31383A5222DCB0010023175C /* MainMenu.xib */; };
 		31383A5D22DCB0700023175C /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31383A5C22DCB0700023175C /* StatusMenuController.swift */; };
+		6AF53E00825125DD582FD990 /* Pods_LocalSwitch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51AA6E410EED73D22CF12D0F /* Pods_LocalSwitch.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,9 @@
 		31383A5622DCB0010023175C /* LocalSwitch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LocalSwitch.entitlements; sourceTree = "<group>"; };
 		31383A5C22DCB0700023175C /* StatusMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
 		31DE0296230086580072D28C /* LocalSwitch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocalSwitch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		372E43FFA6592A528FE97D99 /* Pods-LocalSwitch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalSwitch.release.xcconfig"; path = "Pods/Target Support Files/Pods-LocalSwitch/Pods-LocalSwitch.release.xcconfig"; sourceTree = "<group>"; };
+		51AA6E410EED73D22CF12D0F /* Pods_LocalSwitch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LocalSwitch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C2145843D1EDBB4CA92E397 /* Pods-LocalSwitch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalSwitch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LocalSwitch/Pods-LocalSwitch.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,17 +32,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6AF53E00825125DD582FD990 /* Pods_LocalSwitch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F362B659095A6063ED3DEB5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9C2145843D1EDBB4CA92E397 /* Pods-LocalSwitch.debug.xcconfig */,
+				372E43FFA6592A528FE97D99 /* Pods-LocalSwitch.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		2E6774FE4B8BFC1832D48D1B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				51AA6E410EED73D22CF12D0F /* Pods_LocalSwitch.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		31383A4222DCAFFF0023175C = {
 			isa = PBXGroup;
 			children = (
 				31383A4D22DCAFFF0023175C /* LocalSwitch */,
 				31DE0296230086580072D28C /* LocalSwitch.app */,
+				1F362B659095A6063ED3DEB5 /* Pods */,
+				2E6774FE4B8BFC1832D48D1B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,9 +86,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 31383A5922DCB0010023175C /* Build configuration list for PBXNativeTarget "LocalSwitch" */;
 			buildPhases = (
+				ABB4AB75148E7309E3C432DB /* [CP] Check Pods Manifest.lock */,
 				31383A4722DCAFFF0023175C /* Sources */,
 				31383A4822DCAFFF0023175C /* Frameworks */,
 				31383A4922DCAFFF0023175C /* Resources */,
+				F2003D7A4184F34B072B5AC9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -119,6 +145,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		ABB4AB75148E7309E3C432DB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LocalSwitch-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F2003D7A4184F34B072B5AC9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-LocalSwitch/Pods-LocalSwitch-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/LoginServiceKit/LoginServiceKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LoginServiceKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LocalSwitch/Pods-LocalSwitch-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		31383A4722DCAFFF0023175C /* Sources */ = {
@@ -261,11 +326,14 @@
 		};
 		31383A5A22DCB0010023175C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9C2145843D1EDBB4CA92E397 /* Pods-LocalSwitch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = LocalSwitch/LocalSwitch.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = R2294BC6J8;
 				INFOPLIST_FILE = LocalSwitch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -273,17 +341,21 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dafuqtor.LocalSwitch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		31383A5B22DCB0010023175C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 372E43FFA6592A528FE97D99 /* Pods-LocalSwitch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = LocalSwitch/LocalSwitch.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = R2294BC6J8;
 				INFOPLIST_FILE = LocalSwitch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -291,6 +363,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dafuqtor.LocalSwitch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

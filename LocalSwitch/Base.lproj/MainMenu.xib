@@ -15,6 +15,7 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <customObject id="cS8-cx-d1Y" customClass="StatusMenuController" customModule="LocalSwitch" customModuleProvider="target">
             <connections>
+                <outlet property="launchAtLoginBut" destination="LZT-HH-gAI" id="u5t-oD-uSA"/>
                 <outlet property="restartBut" destination="RUn-I0-CNr" id="Sr1-ve-MLk"/>
                 <outlet property="runBut" destination="CLd-r7-Kev" id="vmZ-9i-JgY"/>
                 <outlet property="statusMenu" destination="XKc-wR-Whv" id="Ifm-WU-gRv"/>
@@ -24,7 +25,7 @@
                 <outlet property="visitLocalhostBut" destination="YYg-sM-NWQ" id="2DM-Nl-1jX"/>
             </connections>
         </customObject>
-        <menu showsStateColumn="NO" autoenablesItems="NO" id="XKc-wR-Whv">
+        <menu autoenablesItems="NO" id="XKc-wR-Whv">
             <items>
                 <menuItem title="Uptime" enabled="NO" indentationLevel="1" id="2x5-e1-JSK">
                     <attributedString key="attributedTitle"/>
@@ -61,6 +62,12 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="Szf-Ct-hra"/>
+                <menuItem title="Launch at Login" indentationLevel="1" id="LZT-HH-gAI">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="launchAtLoginClicked:" target="cS8-cx-d1Y" id="aPP-g4-gJP"/>
+                    </connections>
+                </menuItem>
                 <menuItem title="Quit" keyEquivalent="q" indentationLevel="1" id="MWN-aO-1e4">
                     <attributedString key="attributedTitle"/>
                     <connections>
