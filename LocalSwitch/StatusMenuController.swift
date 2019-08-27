@@ -55,8 +55,7 @@ class StatusMenuController: NSObject, NSMenuDelegate {
   @IBOutlet weak var launchAtLoginBut: NSMenuItem!
   
   @IBAction func launchAtLoginClicked(_ sender: NSMenuItem) {
-    let isExistLoginItem = LoginServiceKit.isExistLoginItems()
-    if isExistLoginItem {
+    if LoginServiceKit.isExistLoginItems() {
       LoginServiceKit.removeLoginItems()
       launchAtLoginBut.state = .off
     } else {
@@ -111,23 +110,22 @@ class StatusMenuController: NSObject, NSMenuDelegate {
   }
   
   override func awakeFromNib() {
-    let icon = NSImage(named: "statusIcon")
-    icon?.isTemplate = true
     statusItem.menu = statusMenu
     statusItem.isVisible = true
     statusItem.behavior = .terminationOnRemoval
     statusMenu.delegate = self
     if let button = statusItem.button {
-      button.image = icon
+      button.image = NSImage(named: "statusIcon")
+      button.image?.isTemplate = true
       button.toolTip = "LocalSwitch"
       button.appearsDisabled = servCheck().isEmpty
       
       let rmhView = RightMouseHandlerView(frame: statusItem.button!.frame)
       rmhView.onRightMouseDown = {
-        if !self.visitBut.isHidden {
-          self.letsVisit()
-        } else {
+        if self.visitBut.isHidden {
           runServer()
+        } else {
+          self.letsVisit()
         }
       }
       button.addSubview(rmhView)
@@ -135,9 +133,7 @@ class StatusMenuController: NSObject, NSMenuDelegate {
   }
   
   func menuWillOpen(_ menu: NSMenu) {
-    statusItem.button?.appearsDisabled = true
-    let isExistLoginItem = LoginServiceKit.isExistLoginItems()
-    if isExistLoginItem {
+    if LoginServiceKit.isExistLoginItems() {
       launchAtLoginBut.state = .on
     } else {
       launchAtLoginBut.state = .off
@@ -145,12 +141,13 @@ class StatusMenuController: NSObject, NSMenuDelegate {
     let checkRes = servCheck()
     let boolCheckInv = checkRes.isEmpty
     stopExecution = boolCheckInv
+    uptimeStat.title = "Server"
     if boolCheckInv {
-      uptimeStat.title = "Server: Stopped"
+      uptimeStat.title += ": Stopped"
       
       runBut.keyEquivalentModifierMask = .command
     } else {
-      uptimeStat.title = "Server uptime: " + getTime(checkRes)
+      uptimeStat.title += " uptime: " + getTime(checkRes)
       
       runBut.keyEquivalentModifierMask = []
 
