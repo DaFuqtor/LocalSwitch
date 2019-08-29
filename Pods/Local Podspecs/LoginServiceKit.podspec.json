@@ -17,5 +17,6 @@
   "platforms": {
     "osx": "10.10"
   },
+  "swift_version": "5.0",
   "source_files": "Lib/**/*.swift"
 }
