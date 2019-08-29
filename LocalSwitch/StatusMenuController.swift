@@ -101,6 +101,15 @@ class StatusMenuController: NSObject, NSMenuDelegate {
     }
   }
   
+  class LeftMouseHandlerView: NSView {
+    
+    var onLeftMouseDown: (()->())? = nil
+    
+    override func mouseDown(with event: NSEvent) {
+      onLeftMouseDown == nil ? super.mouseDown(with: event) : onLeftMouseDown!()
+    }
+  }
+  
   override func awakeFromNib() {
     statusItem.menu = statusMenu
     statusItem.isVisible = true
@@ -112,11 +121,20 @@ class StatusMenuController: NSObject, NSMenuDelegate {
       button.toolTip = "LocalSwitch"
       button.appearsDisabled = servCheck().isEmpty
       
-      let rmhView = RightMouseHandlerView(frame: statusItem.button!.frame)
+      let rmhView = RightMouseHandlerView(frame: button.frame)
       rmhView.onRightMouseDown = {
         button.appearsDisabled ? runServer() : self.letsVisit()
       }
       button.addSubview(rmhView)
+      
+      let lmhView = LeftMouseHandlerView(frame: button.frame)
+      lmhView.onLeftMouseDown = {
+        button.performClick(button)
+        if (NSApp.currentEvent?.clickCount == 2) {
+          NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: NSHomeDirectory() + "/Sites")
+        }
+      }
+      button.addSubview(lmhView)
     }
   }
   
