@@ -19,7 +19,6 @@
 		31383A5022DCB0010023175C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		31383A5322DCB0010023175C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		31383A5522DCB0010023175C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		31383A5622DCB0010023175C /* LocalSwitch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LocalSwitch.entitlements; sourceTree = "<group>"; };
 		31383A5C22DCB0700023175C /* StatusMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
 		31DE0296230086580072D28C /* LocalSwitch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocalSwitch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		372E43FFA6592A528FE97D99 /* Pods-LocalSwitch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalSwitch.release.xcconfig"; path = "Pods/Target Support Files/Pods-LocalSwitch/Pods-LocalSwitch.release.xcconfig"; sourceTree = "<group>"; };
@@ -74,7 +73,6 @@
 				31383A5222DCB0010023175C /* MainMenu.xib */,
 				31383A5C22DCB0700023175C /* StatusMenuController.swift */,
 				31383A5522DCB0010023175C /* Info.plist */,
-				31383A5622DCB0010023175C /* LocalSwitch.entitlements */,
 			);
 			path = LocalSwitch;
 			sourceTree = "<group>";
@@ -329,7 +327,7 @@
 			baseConfigurationReference = 9C2145843D1EDBB4CA92E397 /* Pods-LocalSwitch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = LocalSwitch/LocalSwitch.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -351,7 +349,7 @@
 			baseConfigurationReference = 372E43FFA6592A528FE97D99 /* Pods-LocalSwitch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = LocalSwitch/LocalSwitch.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;

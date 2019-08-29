@@ -9,9 +9,8 @@ func shell(_ command: String) -> String {
   task.launch()
   
   let data = pipe.fileHandleForReading.readDataToEndOfFile()
-  let output: String = NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String
   
-  return output
+  return NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String
 }
 
 extension String {
@@ -76,10 +75,7 @@ class StatusMenuController: NSObject, NSMenuDelegate {
   }
   
   func letsVisit(_ url: String = "") {
-    var visitThis = trimSpaces(shell("hostname"))
-    if !url.isEmpty {
-      visitThis = url
-    }
+    let visitThis = url.isEmpty ? trimSpaces(shell("hostname")) : url
     if NSWorkspace.shared.open(URL(string: "http://" + visitThis)!) {
       print("default browser was successfully opened")
     }
@@ -101,11 +97,7 @@ class StatusMenuController: NSObject, NSMenuDelegate {
     var onRightMouseDown: (()->())? = nil
     
     override func rightMouseDown(with event: NSEvent) {
-      super.rightMouseDown(with: event)
-      
-      if onRightMouseDown != nil {
-        onRightMouseDown!()
-      }
+      onRightMouseDown == nil ? super.rightMouseDown(with: event) : onRightMouseDown!()
     }
   }
   
@@ -122,35 +114,21 @@ class StatusMenuController: NSObject, NSMenuDelegate {
       
       let rmhView = RightMouseHandlerView(frame: statusItem.button!.frame)
       rmhView.onRightMouseDown = {
-        if self.visitBut.isHidden {
-          runServer()
-        } else {
-          self.letsVisit()
-        }
+        button.appearsDisabled ? runServer() : self.letsVisit()
       }
       button.addSubview(rmhView)
     }
   }
   
   func menuWillOpen(_ menu: NSMenu) {
-    if LoginServiceKit.isExistLoginItems() {
-      launchAtLoginBut.state = .on
-    } else {
-      launchAtLoginBut.state = .off
-    }
+    launchAtLoginBut.state = LoginServiceKit.isExistLoginItems() ? .on : .off
     let checkRes = servCheck()
     let boolCheckInv = checkRes.isEmpty
     stopExecution = boolCheckInv
     uptimeStat.title = "Server"
-    if boolCheckInv {
-      uptimeStat.title += ": Stopped"
-      
-      runBut.keyEquivalentModifierMask = .command
-    } else {
-      uptimeStat.title += " uptime: " + getTime(checkRes)
-      
-      runBut.keyEquivalentModifierMask = []
-
+    uptimeStat.title += boolCheckInv ? ": Stopped" : (" uptime: " + getTime(checkRes))
+    runBut.keyEquivalentModifierMask = boolCheckInv ? .command : []
+    if !boolCheckInv {
       visitBut.title = "Visit " + trimSpaces(shell("hostname"))
       visitBut.toolTip = shell("ipconfig getifaddr en0")
 

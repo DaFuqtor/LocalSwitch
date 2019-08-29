@@ -5,11 +5,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   func applicationShouldHandleReopen(_ sender: NSApplication,
                                      hasVisibleWindows flag: Bool) -> Bool
   {
-    if servCheck().isEmpty {
-      runServer()
-    } else {
-      stopServer()
-    }
+    servCheck().isEmpty ? runServer() : stopServer()
     return true
   }
 }
