@@ -115,6 +115,12 @@ class StatusMenuController: NSObject, NSMenuDelegate {
   
   class LeftMouseHandlerView: NSView {
     
+    var onOtherMouseDown: (()->())? = nil
+    
+    override func otherMouseDown(with event: NSEvent) {
+      onOtherMouseDown == nil ? super.otherMouseDown(with: event) : onOtherMouseDown!()
+    }
+    
     var onLeftMouseDown: (()->())? = nil
     
     override func mouseDown(with event: NSEvent) {
@@ -146,6 +152,9 @@ class StatusMenuController: NSObject, NSMenuDelegate {
         if (NSApp.currentEvent?.clickCount == 2) {
           openSitesFolder()
         }
+      }
+      lmhView.onOtherMouseDown = {
+        servCheck().isEmpty ? runServer() : stopServer()
       }
       button.addSubview(lmhView)
     }
