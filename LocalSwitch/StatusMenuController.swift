@@ -19,6 +19,14 @@ extension String {
   }
 }
 
+extension NSStatusBarButton {
+  override open func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+    print("entered dragging")
+    openSitesFolder()
+    return NSDragOperation()
+  }
+}
+
 func servCheck() -> String {
   return shell("ps -eo comm,etime,user | grep root | grep httpd")
 }
@@ -28,6 +36,10 @@ func getTime(_ query: String) -> String {
 }
 
 var statusItem = NSStatusBar.system.statusItem(withLength: 27)
+
+func openSitesFolder() {
+  NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: NSHomeDirectory() + "/Sites")
+}
 
 func runServer() {
   shell("sudo apachectl graceful")
@@ -119,8 +131,9 @@ class StatusMenuController: NSObject, NSMenuDelegate {
       button.image = NSImage(named: "statusIcon")
       button.image?.isTemplate = true
       button.toolTip = "LocalSwitch"
+      button.isSpringLoaded = true
       button.appearsDisabled = servCheck().isEmpty
-      
+
       let rmhView = RightMouseHandlerView(frame: button.frame)
       rmhView.onRightMouseDown = {
         button.appearsDisabled ? runServer() : self.letsVisit()
@@ -129,9 +142,9 @@ class StatusMenuController: NSObject, NSMenuDelegate {
       
       let lmhView = LeftMouseHandlerView(frame: button.frame)
       lmhView.onLeftMouseDown = {
-        button.performClick(button)
+        button.performClick(NSApp.currentEvent)
         if (NSApp.currentEvent?.clickCount == 2) {
-          NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: NSHomeDirectory() + "/Sites")
+          openSitesFolder()
         }
       }
       button.addSubview(lmhView)
