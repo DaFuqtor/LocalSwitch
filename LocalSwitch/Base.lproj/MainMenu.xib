@@ -63,11 +63,15 @@
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="Szf-Ct-hra"/>
                 <menuItem title="Preferences" indentationLevel="1" id="cGc-mA-cVU">
-                    <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Preferences" id="IuI-Nq-KQa">
                         <items>
+                            <menuItem title="Open Sites folder" keyEquivalent="o" toolTip="RMB" id="lpc-MW-HSw" userLabel="Open Sites folder">
+                                <connections>
+                                    <action selector="openSitesClicked:" target="cS8-cx-d1Y" id="uLh-wr-k5L"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="G1E-AL-Z5u"/>
                             <menuItem title="Launch at Login" id="LZT-HH-gAI">
-                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="launchAtLoginClicked:" target="cS8-cx-d1Y" id="aPP-g4-gJP"/>
                                 </connections>
@@ -75,10 +79,9 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="Quit" keyEquivalent="q" indentationLevel="1" id="MWN-aO-1e4">
-                    <attributedString key="attributedTitle"/>
+                <menuItem title="Quit" keyEquivalent="q" indentationLevel="1" id="RaN-dc-m7z">
                     <connections>
-                        <action selector="quitClicked:" target="cS8-cx-d1Y" id="mGc-rO-lL5"/>
+                        <action selector="terminate:" target="-1" id="oW2-to-wVE"/>
                     </connections>
                 </menuItem>
             </items>

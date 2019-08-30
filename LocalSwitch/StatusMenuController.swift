@@ -75,8 +75,8 @@ class StatusMenuController: NSObject, NSMenuDelegate {
     }
   }
   
-  @IBAction func quitClicked(_ sender: NSMenuItem) {
-    NSApplication.shared.terminate(self)
+  @IBAction func openSitesClicked(_ sender: NSMenuItem) {
+    openSitesFolder()
   }
   
   @IBAction func runClicked(_ sender: NSMenuItem) {
