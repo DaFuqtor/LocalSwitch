@@ -76,6 +76,11 @@
                                     <action selector="launchAtLoginClicked:" target="cS8-cx-d1Y" id="aPP-g4-gJP"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="About Application" hidden="YES" keyEquivalent="i" allowsKeyEquivalentWhenHidden="YES" id="cGl-ip-B6h">
+                                <connections>
+                                    <action selector="orderFrontStandardAboutPanel:" target="-1" id="pea-wY-OxT"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>

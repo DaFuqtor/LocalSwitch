@@ -142,6 +142,10 @@ class StatusMenuController: NSObject, NSMenuDelegate {
 
       let rmhView = RightMouseHandlerView(frame: button.frame)
       rmhView.onRightMouseDown = {
+        button.highlight(true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [weak self] in
+          button.highlight(false)
+        }
         button.appearsDisabled ? runServer() : self.letsVisit()
       }
       button.addSubview(rmhView)
@@ -154,6 +158,10 @@ class StatusMenuController: NSObject, NSMenuDelegate {
         }
       }
       lmhView.onOtherMouseDown = {
+        button.highlight(true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+          button.highlight(false)
+        }
         servCheck().isEmpty ? runServer() : stopServer()
       }
       button.addSubview(lmhView)
@@ -172,7 +180,7 @@ class StatusMenuController: NSObject, NSMenuDelegate {
       visitBut.title = "Visit " + trimSpaces(shell("hostname"))
       visitBut.toolTip = shell("ipconfig getifaddr en0")
 
-      executeRepeatedly()
+      executeRepeatedly(checkRes)
     }
     statusItem.button?.appearsDisabled = boolCheckInv
     stopBut.isEnabled = !boolCheckInv
@@ -192,9 +200,9 @@ class StatusMenuController: NSObject, NSMenuDelegate {
   
   var stopExecution = false
   
-  private func executeRepeatedly() {
+  private func executeRepeatedly(_ check: String = "") {
     if !stopExecution {
-      let checkRes = servCheck()
+      let checkRes = check.isEmpty ? servCheck() : check
       print(checkRes)
       if !checkRes.isEmpty {
         uptimeStat.title = "Server uptime: " + getTime(checkRes)
@@ -203,6 +211,5 @@ class StatusMenuController: NSObject, NSMenuDelegate {
         }
       }
     }
-    
   }
 }
