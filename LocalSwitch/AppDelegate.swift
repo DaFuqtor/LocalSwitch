@@ -5,7 +5,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   func applicationShouldHandleReopen(_ sender: NSApplication,
                                      hasVisibleWindows flag: Bool) -> Bool
   {
-    servCheck().isEmpty ? runServer() : stopServer()
+    if let button = statusItem.button {
+      button.highlight(true)
+      DispatchQueue.main.asyncAfter(deadline: .now()) {
+        servCheck().isEmpty ? runServer() : stopServer()
+      }
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+        button.highlight(false)
+      }
+    }
     return true
   }
 }

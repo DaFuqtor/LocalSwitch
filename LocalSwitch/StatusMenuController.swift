@@ -43,11 +43,17 @@ func openSitesFolder() {
 
 func runServer() {
   shell("sudo apachectl graceful")
-  statusItem.button?.appearsDisabled = false
+  DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+    if !servCheck().isEmpty {
+      statusItem.button?.appearsDisabled = false
+    }
+  }
 }
 func stopServer() {
   shell("sudo apachectl graceful-stop")
-  statusItem.button?.appearsDisabled = true
+  if servCheck().isEmpty {
+    statusItem.button?.appearsDisabled = true
+  }
 }
 
 import Cocoa
@@ -143,7 +149,7 @@ class StatusMenuController: NSObject, NSMenuDelegate {
       let rmhView = RightMouseHandlerView(frame: button.frame)
       rmhView.onRightMouseDown = {
         button.highlight(true)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
           button.highlight(false)
         }
         button.appearsDisabled ? runServer() : self.letsVisit()
@@ -159,10 +165,12 @@ class StatusMenuController: NSObject, NSMenuDelegate {
       }
       lmhView.onOtherMouseDown = {
         button.highlight(true)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+          servCheck().isEmpty ? runServer() : stopServer()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
           button.highlight(false)
         }
-        servCheck().isEmpty ? runServer() : stopServer()
       }
       button.addSubview(lmhView)
     }
