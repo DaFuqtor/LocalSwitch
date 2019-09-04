@@ -10,9 +10,9 @@
 
 <br>
 
-<a align="left" href="//app.bitrise.io/app/0769bd3b0356ebfb"><img align="left" alt="Build status" src="https://app.bitrise.io/app/0769bd3b0356ebfb/status.svg?token=YB1MFGU_HjycQbCYYvbywQ"></a>
-
 <a align="right" href="//github.com/DaFuqtor/LocalSwitch/releases"><img align="right" alt="GitHub All Releases" src="https://img.shields.io/github/downloads/dafuqtor/localswitch/total"></a>
+
+<a align="left" href="//app.bitrise.io/app/0769bd3b0356ebfb"><img align="left" alt="Build status" src="https://app.bitrise.io/app/0769bd3b0356ebfb/status.svg?token=YB1MFGU_HjycQbCYYvbywQ"></a>
 
 <p align="center">LocalSwitch is an open source macOS interface for <code>apachectl</code> written in Swift.</p>
 
