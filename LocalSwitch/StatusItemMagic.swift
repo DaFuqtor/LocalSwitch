@@ -35,41 +35,41 @@ extension NSStatusBarButton {
       self.image = NSImage(named: "statusIcon")!.rotated(CGFloat(iconDegrees))
     } else {
       
-      if iconDegrees > 0 {
+      if iconDegrees > from {
         iconDegrees -= 1
-      } else if iconDegrees < -10 && iconDegrees > -30 {
+      } else if iconDegrees < from - 10 && iconDegrees > from - 30 {
         iconDegrees -= 2
-      } else if iconDegrees < -30 && iconDegrees > -60 {
+      } else if iconDegrees < from - 30 && iconDegrees > from - 60 {
         iconDegrees -= 3
-      } else if iconDegrees < -60 && iconDegrees > -100 {
+      } else if iconDegrees < from - 60 && iconDegrees > from - 100 {
         iconDegrees -= 4
-      } else if iconDegrees < -100 && iconDegrees > -150 {
+      } else if iconDegrees < from - 100 && iconDegrees > from - 150 {
         iconDegrees -= 5
-      } else if iconDegrees < -150 && iconDegrees > -220 {
+      } else if iconDegrees < from - 150 && iconDegrees > from - 220 {
         iconDegrees -= 6
-      } else if iconDegrees < -220 && iconDegrees > -300 {
+      } else if iconDegrees < from - 220 && iconDegrees > from - 300 {
         iconDegrees -= 7
-      } else if iconDegrees < -300 && iconDegrees > -390 {
+      } else if iconDegrees < from - 300 && iconDegrees > from - 390 {
         iconDegrees -= 8
-      } else if iconDegrees < -390 && iconDegrees > -490 {
+      } else if iconDegrees < from - 390 && iconDegrees > to + 450 {
         iconDegrees -= 9
-      } else if iconDegrees < -490 && iconDegrees > -580 {
+      } else if iconDegrees < to + 450 && iconDegrees > to + 360 {
         iconDegrees -= 8
-      } else if iconDegrees < -580 && iconDegrees > -660 {
+      } else if iconDegrees < to + 360 && iconDegrees > to + 280 {
         iconDegrees -= 7
-      } else if iconDegrees < -660 && iconDegrees > -730 {
+      } else if iconDegrees < to + 280 && iconDegrees > to + 210 {
         iconDegrees -= 6
-      } else if iconDegrees < -730 && iconDegrees > -790 {
+      } else if iconDegrees < to + 210 && iconDegrees > to + 150 {
         iconDegrees -= 5
-      } else if iconDegrees < -790 && iconDegrees > -840 {
+      } else if iconDegrees < to + 150 && iconDegrees > to + 100 {
         iconDegrees -= 4
-      } else if iconDegrees < -840 && iconDegrees > -880 {
+      } else if iconDegrees < to + 100 && iconDegrees > to + 60 {
         iconDegrees -= 3
-      } else if iconDegrees < -880 && iconDegrees > -910 {
+      } else if iconDegrees < to + 60 && iconDegrees > to + 30 {
         iconDegrees -= 3
-      } else if iconDegrees < -910 && iconDegrees > -930 {
+      } else if iconDegrees < to + 30 && iconDegrees > to + 10 {
         iconDegrees -= 2
-      } else if iconDegrees < -930 && iconDegrees > -940 {
+      } else if iconDegrees < to + 10 && iconDegrees > to {
         iconDegrees -= 1
       }
       else {
