@@ -8,7 +8,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     if let button = statusItem.button {
       button.highlight(true)
       DispatchQueue.main.asyncAfter(deadline: .now()) {
-        servCheck().isEmpty ? runServer() : stopServer()
+        Server.check().isEmpty ? Server.run() : Server.stop()
       }
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
         button.highlight(false)

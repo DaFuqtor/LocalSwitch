@@ -1,3 +1,6 @@
+import Cocoa
+import LoginServiceKit
+
 @discardableResult
 func shell(_ command: String) -> String {
   let task = Process()
@@ -19,6 +22,10 @@ extension String {
   }
 }
 
+func getTime(_ query: String) -> String {
+  return query.condenseWhitespace().components(separatedBy: " ")[1]
+}
+
 extension NSStatusBarButton {
   override open func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
     print("entered dragging")
@@ -27,69 +34,48 @@ extension NSStatusBarButton {
   }
 }
 
-func servCheck() -> String {
-  return shell("ps -eo comm,etime,user | grep root | grep httpd")
-}
-
-func getTime(_ query: String) -> String {
-  return query.condenseWhitespace().components(separatedBy: " ")[1]
-}
-
 var statusItem = NSStatusBar.system.statusItem(withLength: 27)
 
 func openSitesFolder() {
   NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: NSHomeDirectory() + "/Sites")
 }
 
-func runServer() {
-  shell("sudo apachectl graceful")
-  DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-    if !servCheck().isEmpty {
-      statusItem.button?.appearsDisabled = false
+public final class Server: NSObject {
+  static func check() -> String {
+    return shell("ps -eo comm,etime,user | grep root | grep httpd")
+  }
+
+  static func run() {
+    shell("sudo apachectl graceful")
+    statusItem.button?.fadeIn()
+    statusItem.button?.spin()
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1.8) {
+      if check().isEmpty {
+        statusItem.button?.fadeOut()
+      }
+    }
+  }
+  static func stop() {
+    shell("sudo apachectl graceful-stop")
+    if check().isEmpty {
+      statusItem.button?.fadeOut()
     }
   }
 }
-func stopServer() {
-  shell("sudo apachectl graceful-stop")
-  if servCheck().isEmpty {
-    statusItem.button?.appearsDisabled = true
-  }
-}
-
-import Cocoa
-import LoginServiceKit
 
 class StatusMenuController: NSObject, NSMenuDelegate {
   @IBOutlet weak var statusMenu: NSMenu!
   @IBOutlet weak var uptimeStat: NSMenuItem!
   
-  @IBOutlet weak var visitBut: NSMenuItem!
-  @IBOutlet weak var visitLocalhostBut: NSMenuItem!
   @IBOutlet weak var runBut: NSMenuItem!
-  @IBOutlet weak var stopBut: NSMenuItem!
   @IBOutlet weak var restartBut: NSMenuItem!
-  
-  @IBOutlet weak var launchAtLoginBut: NSMenuItem!
-  
-  @IBAction func launchAtLoginClicked(_ sender: NSMenuItem) {
-    if LoginServiceKit.isExistLoginItems() {
-      LoginServiceKit.removeLoginItems()
-      launchAtLoginBut.state = .off
-    } else {
-      LoginServiceKit.addLoginItems()
-      launchAtLoginBut.state = .on
-    }
-  }
-  
-  @IBAction func openSitesClicked(_ sender: NSMenuItem) {
-    openSitesFolder()
-  }
-  
   @IBAction func runClicked(_ sender: NSMenuItem) {
-    runServer()
+    Server.run()
   }
+  
+  @IBOutlet weak var stopBut: NSMenuItem!
   @IBAction func stopClicked(_ sender: NSMenuItem) {
-    stopServer()
+    Server.stop()
   }
   
   func letsVisit(_ url: String = "") {
@@ -99,11 +85,29 @@ class StatusMenuController: NSObject, NSMenuDelegate {
     }
   }
   
+  @IBOutlet weak var visitBut: NSMenuItem!
   @IBAction func visitClicked(_ sender: NSMenuItem) {
     letsVisit()
   }
+  
+  @IBOutlet weak var visitLocalhostBut: NSMenuItem!
   @IBAction func visitLocalhostClicked(_ sender: NSMenuItem) {
     letsVisit("localhost")
+  }
+  
+  @IBAction func openSitesClicked(_ sender: NSMenuItem) {
+    openSitesFolder()
+  }
+  
+  @IBOutlet weak var launchAtLoginBut: NSMenuItem!
+  @IBAction func launchAtLoginClicked(_ sender: NSMenuItem) {
+    if LoginServiceKit.isExistLoginItems() {
+      LoginServiceKit.removeLoginItems()
+      launchAtLoginBut.state = .off
+    } else {
+      LoginServiceKit.addLoginItems()
+      launchAtLoginBut.state = .on
+    }
   }
   
   func trimSpaces(_ query: String) -> String {
@@ -144,15 +148,17 @@ class StatusMenuController: NSObject, NSMenuDelegate {
       button.image?.isTemplate = true
       button.toolTip = "LocalSwitch"
       button.isSpringLoaded = true
-      button.appearsDisabled = servCheck().isEmpty
+      button.appearsDisabled = Server.check().isEmpty
 
       let rmhView = RightMouseHandlerView(frame: button.frame)
       rmhView.onRightMouseDown = {
         button.highlight(true)
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+          Server.check().isEmpty ? Server.run() : self.letsVisit()
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
           button.highlight(false)
         }
-        button.appearsDisabled ? runServer() : self.letsVisit()
       }
       button.addSubview(rmhView)
       
@@ -166,7 +172,7 @@ class StatusMenuController: NSObject, NSMenuDelegate {
       lmhView.onOtherMouseDown = {
         button.highlight(true)
         DispatchQueue.main.asyncAfter(deadline: .now()) {
-          servCheck().isEmpty ? runServer() : stopServer()
+          Server.check().isEmpty ? Server.run() : Server.stop()
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
           button.highlight(false)
@@ -176,9 +182,9 @@ class StatusMenuController: NSObject, NSMenuDelegate {
     }
   }
   
-  func menuWillOpen(_ menu: NSMenu) {
+  func menuNeedsUpdate(_ menu: NSMenu) {
     launchAtLoginBut.state = LoginServiceKit.isExistLoginItems() ? .on : .off
-    let checkRes = servCheck()
+    let checkRes = Server.check()
     let boolCheckInv = checkRes.isEmpty
     stopExecution = boolCheckInv
     uptimeStat.title = "Server"
@@ -210,7 +216,7 @@ class StatusMenuController: NSObject, NSMenuDelegate {
   
   private func executeRepeatedly(_ check: String = "") {
     if !stopExecution {
-      let checkRes = check.isEmpty ? servCheck() : check
+      let checkRes = check.isEmpty ? Server.check() : check
       print(checkRes)
       if !checkRes.isEmpty {
         uptimeStat.title = "Server uptime: " + getTime(checkRes)

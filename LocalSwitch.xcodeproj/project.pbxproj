@@ -11,6 +11,7 @@
 		31383A5122DCB0010023175C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31383A5022DCB0010023175C /* Assets.xcassets */; };
 		31383A5422DCB0010023175C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31383A5222DCB0010023175C /* MainMenu.xib */; };
 		31383A5D22DCB0700023175C /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31383A5C22DCB0700023175C /* StatusMenuController.swift */; };
+		31CD5B5A2325116100DFA701 /* StatusItemMagic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CD5B592325116100DFA701 /* StatusItemMagic.swift */; };
 		6AF53E00825125DD582FD990 /* Pods_LocalSwitch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51AA6E410EED73D22CF12D0F /* Pods_LocalSwitch.framework */; };
 /* End PBXBuildFile section */
 
@@ -20,6 +21,7 @@
 		31383A5322DCB0010023175C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		31383A5522DCB0010023175C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31383A5C22DCB0700023175C /* StatusMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
+		31CD5B592325116100DFA701 /* StatusItemMagic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemMagic.swift; sourceTree = "<group>"; };
 		31DE0296230086580072D28C /* LocalSwitch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocalSwitch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		372E43FFA6592A528FE97D99 /* Pods-LocalSwitch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalSwitch.release.xcconfig"; path = "Pods/Target Support Files/Pods-LocalSwitch/Pods-LocalSwitch.release.xcconfig"; sourceTree = "<group>"; };
 		51AA6E410EED73D22CF12D0F /* Pods_LocalSwitch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LocalSwitch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,6 +74,7 @@
 				31383A5022DCB0010023175C /* Assets.xcassets */,
 				31383A5222DCB0010023175C /* MainMenu.xib */,
 				31383A5C22DCB0700023175C /* StatusMenuController.swift */,
+				31CD5B592325116100DFA701 /* StatusItemMagic.swift */,
 				31383A5522DCB0010023175C /* Info.plist */,
 			);
 			path = LocalSwitch;
@@ -188,6 +191,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31CD5B5A2325116100DFA701 /* StatusItemMagic.swift in Sources */,
 				31383A5D22DCB0700023175C /* StatusMenuController.swift in Sources */,
 				31383A4F22DCAFFF0023175C /* AppDelegate.swift in Sources */,
 			);
