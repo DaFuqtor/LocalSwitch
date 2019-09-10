@@ -17,13 +17,68 @@ func shell(_ command: String) -> String {
 }
 
 extension String {
+
   func condenseWhitespace() -> String {
     return self.components(separatedBy: .whitespacesAndNewlines).filter { !$0.isEmpty }.joined(separator: " ")
   }
+
+  func parseDuration() -> TimeInterval {
+    guard !self.isEmpty else {
+      return 0
+    }
+    
+    var interval:Double = 0
+    
+    let parts = self.components(separatedBy: ":")
+    for (index, part) in parts.reversed().enumerated() {
+      interval += (Double(part) ?? 0) * pow(Double(60), Double(index))
+    }
+    
+    return interval
+  }
+
+}
+
+extension TimeInterval {
+  
+  func stringFromTimeInterval() -> String {
+    
+    let time = NSInteger(self)
+    
+//    let ms = Int((self.truncatingRemainder(dividingBy: 1)) * 1000)
+    let seconds = time % 60
+    let minutes = (time / 60) % 60
+    let hours = (time / 3600)
+    let days = time / (3600 * 24)
+    
+    var humanRdableString = String()
+    if days != 0 {
+      humanRdableString += "\(days)d"
+    }
+    if hours != 0 {
+      humanRdableString += " \(hours)h"
+    }
+    if minutes != 0 {
+      humanRdableString += " \(minutes)m"
+    }
+    if seconds != 0 {
+      humanRdableString += " \(seconds)s"
+    }
+
+    humanRdableString = humanRdableString.condenseWhitespace()
+
+    return humanRdableString
+    
+  }
+
 }
 
 func getTime(_ query: String) -> String {
-  return query.condenseWhitespace().components(separatedBy: " ")[1]
+  let initTime = query.condenseWhitespace().components(separatedBy: " ")[1]
+  print(initTime)
+  let theInterval = initTime.parseDuration().stringFromTimeInterval()
+  print(theInterval)
+  return theInterval
 }
 
 extension NSStatusBarButton {
@@ -187,8 +242,10 @@ class StatusMenuController: NSObject, NSMenuDelegate {
     let checkRes = Server.check()
     let boolCheckInv = checkRes.isEmpty
     stopExecution = boolCheckInv
-    uptimeStat.title = "Server"
-    uptimeStat.title += boolCheckInv ? ": Stopped" : (" uptime: " + getTime(checkRes))
+//    uptimeStat.title = "Server"
+//    uptimeStat.title += boolCheckInv ? ": Stopped" : (" uptime: " + getTime(checkRes))
+  
+    uptimeStat.title = boolCheckInv ? "Server: Stopped" : ("Uptime: " + getTime(checkRes))
     runBut.keyEquivalentModifierMask = boolCheckInv ? .command : []
     if !boolCheckInv {
       visitBut.title = "Visit " + trimSpaces(shell("hostname"))
@@ -219,7 +276,7 @@ class StatusMenuController: NSObject, NSMenuDelegate {
       let checkRes = check.isEmpty ? Server.check() : check
       print(checkRes)
       if !checkRes.isEmpty {
-        uptimeStat.title = "Server uptime: " + getTime(checkRes)
+        uptimeStat.title = "Uptime: " + getTime(checkRes)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
           self?.executeRepeatedly()
         }
