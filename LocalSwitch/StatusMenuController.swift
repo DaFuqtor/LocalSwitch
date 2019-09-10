@@ -150,6 +150,8 @@ class StatusMenuController: NSObject, NSMenuDelegate {
     letsVisit("localhost")
   }
   
+  let foldersMenuItem = NSMenuItem.init(title: "Projects", action: nil, keyEquivalent: "")
+  
   @IBAction func openSitesClicked(_ sender: NSMenuItem) {
     openSitesFolder()
   }
@@ -190,6 +192,17 @@ class StatusMenuController: NSObject, NSMenuDelegate {
     
     override func mouseDown(with event: NSEvent) {
       onLeftMouseDown == nil ? super.mouseDown(with: event) : onLeftMouseDown!()
+    }
+  }
+  
+  @objc func openFolder(_ sender: NSMenuItem) {
+    print(sender.title)
+    NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: NSHomeDirectory() + "/Sites/" + sender.title)
+  }
+  @objc func openSite(_ sender: NSMenuItem) {
+    print(sender.title)
+    if NSWorkspace.shared.open(URL(string: "http://localhost/" + sender.title + "/")!) {
+      print("default browser was successfully opened")
     }
   }
   
@@ -234,6 +247,24 @@ class StatusMenuController: NSObject, NSMenuDelegate {
         }
       }
       button.addSubview(lmhView)
+      
+      let sentence = shell(" ls -F ~/Sites | grep /")
+      let lines = sentence.split { $0.isNewline }
+      print(lines)   // "[Line 1, Line 2, Line 3]"
+      let menuOfFolders = NSMenu()
+      
+      foldersMenuItem.submenu = menuOfFolders
+      
+      for item in lines {
+        var readyItem = item
+        readyItem.remove(at: readyItem.index(before: readyItem.endIndex))
+
+        menuOfFolders.addItem(withTitle: String(readyItem), action: #selector(openSite(_:)), keyEquivalent: "")
+        menuOfFolders.item(withTitle: String(readyItem))?.target = self
+      }
+
+      foldersMenuItem.indentationLevel = 2
+      statusMenu.insertItem(foldersMenuItem, at: 7)
     }
   }
   
@@ -242,8 +273,6 @@ class StatusMenuController: NSObject, NSMenuDelegate {
     let checkRes = Server.check()
     let boolCheckInv = checkRes.isEmpty
     stopExecution = boolCheckInv
-//    uptimeStat.title = "Server"
-//    uptimeStat.title += boolCheckInv ? ": Stopped" : (" uptime: " + getTime(checkRes))
   
     uptimeStat.title = boolCheckInv ? "Server: Stopped" : ("Uptime: " + getTime(checkRes))
     runBut.keyEquivalentModifierMask = boolCheckInv ? .command : []
@@ -264,6 +293,7 @@ class StatusMenuController: NSObject, NSMenuDelegate {
     visitBut.isHidden = boolCheckInv
     visitLocalhostBut.isAlternate = !boolCheckInv
     visitLocalhostBut.isHidden = boolCheckInv
+    foldersMenuItem.isHidden = boolCheckInv
   }
   func menuDidClose(_ menu: NSMenu) {
     stopExecution = true
