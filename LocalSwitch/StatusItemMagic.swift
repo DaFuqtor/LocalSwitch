@@ -29,10 +29,11 @@ var iconDegrees = 0
 
 extension NSStatusBarButton {
   func spin(from: Int = 0, to: Int = -940) {
+    let theImage = NSImage(named: "statusIcon")
     if iconDegrees <= to {
       iconDegrees = from
       
-      self.image = NSImage(named: "statusIcon")!.rotated(CGFloat(iconDegrees))
+      self.image = theImage?.rotated(CGFloat(iconDegrees))
     } else {
       
       if iconDegrees > from {
@@ -76,7 +77,7 @@ extension NSStatusBarButton {
         iconDegrees -= 1
       }
       
-      self.image = NSImage(named: "statusIcon")!.rotated(CGFloat(iconDegrees))
+      self.image = theImage?.rotated(CGFloat(iconDegrees))
       
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.0000001) {
         self.spin()
